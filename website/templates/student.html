@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Student Page{% endblock %}
+{% block content %}
+  <h2>Welcome, {{ user.name }}!</h2>
+  <h3>Books Checked Out:</h3>
+  {% if checked_out_books %}
+    <ul>
+      {% for book in checked_out_books %}
+        <li>{{ book.title }} - Due Date: {{ book.due_date.strftime('%Y-%m-%d %H:%M:%S') }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No books checked out.</p>
+  {% endif %}
+
+<!-- Available Books -->
+<h2>Available Books</h2>
+{% if available_books %}
+  <ul>
+    {% for book in available_books %}
+      <li>{{ book.title }} - {{ book.author }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No available books.</p>
+{% endif %}
+
+<!-- Checkout Books -->
+<h2>Checkout Books</h2>
+<form method="POST" action="{{ url_for('auth.checkout_book', role='student') }}">
+  <label for="book_id">Select Book to Checkout:</label>
+  <select name="book_id" id="book_id">
+    {% for book in available_books %}
+      <option value="{{ book.id }}">{{ book.title }} - {{ book.author }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Checkout</button>
+</form>
+
+<!-- Return Books -->
+<h2>Return Books</h2>
+<form method="POST" action="{{ url_for('auth.return_book', role='student') }}">
+  <label for="book_id">Select Book to Return:</label>
+  <select name="book_id" id="book_id">
+    {% for book in checked_out_books %}
+      <option value="{{ book.id }}">{{ book.title }} - {{ book.author }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Return Book</button>
+</form>
+{% endblock %}

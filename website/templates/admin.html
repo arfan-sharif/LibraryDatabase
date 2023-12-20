@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="container">
+    <h3 align="center">Admin Panel</h3>
+    <hr>
+
+    <!-- Modify User Role Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Modify User Role</h5>
+            <form method="POST" action="{{ url_for('auth.modify_role') }}">
+                <div class="form-group">
+                    <label for="user_email">User Email:</label>
+                    <input type="email" class="form-control" id="user_email" name="user_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_role">New Role:</label>
+                    <select class="form-control" id="new_role" name="new_role" required>
+                        <option value="student">Student</option>
+                        <option value="faculty">Faculty</option>
+                        <option value="librarian">Librarian</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Modify Role</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add User Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Add User</h5>
+            <form method="POST" action="{{ url_for('auth.add_user') }}">
+                <div class="form-group">
+                    <label for="new_user_email">User Email:</label>
+                    <input type="email" class="form-control" id="new_user_email" name="new_user_email" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_user_name">User Name:</label>
+                    <input type="text" class="form-control" id="new_user_name" name="new_user_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_user_role">User Role:</label>
+                    <select class="form-control" id="new_user_role" name="new_user_role" required>
+                        <option value="student">Student</option>
+                        <option value="faculty">Faculty</option>
+                        <option value="librarian">Librarian</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new_user_password">User Password:</label>
+                    <input type="password" class="form-control" id="new_user_password" name="new_user_password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete User Form -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Delete User</h5>
+            <form method="POST" action="{{ url_for('auth.delete_user') }}">
+                <div class="form-group">
+                    <label for="delete_user_email">User Email:</label>
+                    <input type="email" class="form-control" id="delete_user_email" name="delete_user_email" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Delete User</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
